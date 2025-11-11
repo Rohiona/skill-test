@@ -1,6 +1,16 @@
 # skill-test
 
-Laravel開発環境（Docker Compose）
+AI画像分析APIシステム - Laravel開発環境（Docker Compose）
+
+## プロジェクト概要
+
+画像ファイルパスを受け取り、AI分析APIで画像分類を行い、結果をデータベースに保存するシステムです。
+
+### 主な機能
+
+- Web UI（画像パス入力フォーム、分析ログ一覧）
+- Mock AI分析API（開発用）
+- クリーンアーキテクチャに基づいた設計（Application層、Infrastructure層、Domain層）
 
 ## 環境
 
@@ -14,7 +24,17 @@ Laravel開発環境（Docker Compose）
 
 - Docker
 - Docker Compose
-- Make
+- Make (macOSの場合は Xcode Command Line Tools が必要)
+
+### Makeのインストール (macOS)
+
+```bash
+# インストール確認
+make --version
+
+# インストールされていない場合
+xcode-select --install
+```
 
 ## セットアップ
 
@@ -25,16 +45,10 @@ make build
 make up
 ```
 
-### 2. Laravelのインストール（初回のみ）
-
-```bash
-docker-compose exec skill-test-app composer create-project laravel/laravel src
-```
-
-### 3. アクセス
+### 2. アクセス
 
 - **HTTPS**: https://localhost:18443
-- **HTTP**: http://localhost:18080 (自動的にHTTPSへリダイレクト)
+- **HTTP**: http://localhost:18080
 - **MySQL**: localhost:13307
 
 ### データベース接続情報
@@ -49,18 +63,19 @@ docker-compose exec skill-test-app composer create-project laravel/laravel src
 ## Makeコマンド
 
 ```bash
-make help       # ヘルプを表示
-make up         # コンテナを起動
-make down       # コンテナを停止・削除
-make build      # コンテナをビルド
-make restart    # コンテナを再起動
-make logs       # ログを表示
-make ps         # コンテナ一覧を表示
-make attach-app # PHPコンテナにアタッチ
-make pint       # コードフォーマット（Laravel Pint）
-make pint-test  # フォーマットチェックのみ
-make ide-helper # IDE Helperファイル生成
-make clean      # コンテナ停止・ボリューム削除
+make help          # ヘルプを表示
+make up            # コンテナを起動
+make down          # コンテナを停止・削除
+make build         # コンテナをビルド
+make restart       # コンテナを再起動
+make logs          # ログを表示
+make ps            # コンテナ一覧を表示
+make attach-app    # PHPコンテナにアタッチ
+make pint          # コードフォーマット（Laravel Pint）
+make pint-test     # フォーマットチェックのみ
+make ide-helper    # IDE Helperファイル生成
+make dump-autoload # Composer autoload更新
+make clean         # コンテナ停止・ボリューム削除
 ```
 
 ## SSL証明書について
