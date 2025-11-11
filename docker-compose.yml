@@ -37,12 +37,7 @@ services:
     command: >
       sh -c "apk add --no-cache openssl &&
              mkdir -p /etc/nginx/ssl &&
-             if [ ! -f /etc/nginx/ssl/server.crt ]; then
-               openssl req -x509 -nodes -days 365 -newkey rsa:2048
-               -keyout /etc/nginx/ssl/server.key
-               -out /etc/nginx/ssl/server.crt
-               -subj '/C=JP/ST=Tokyo/L=Tokyo/O=Development/CN=localhost';
-             fi &&
+             openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -subj '/C=JP/ST=Tokyo/L=Tokyo/O=Development/CN=localhost' &&
              nginx -g 'daemon off;'"
 
   skill-test-db:

@@ -31,3 +31,7 @@ auth.json
 
 .idea
 .claude
+
+# SSL certificates (auto-generated)
+docker/nginx/ssl/server.crt
+docker/nginx/ssl/server.key
