@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MockAiApiController extends Controller
 {
@@ -17,7 +17,7 @@ class MockAiApiController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error:E50012',
-                'estimated_data' => []
+                'estimated_data' => [],
             ], 400);
         }
 
@@ -31,16 +31,17 @@ class MockAiApiController extends Controller
                 'message' => 'success',
                 'estimated_data' => [
                     'class' => rand(1, 10), // ランダムなクラス（1-10）
-                    'confidence' => round(rand(5000, 9999) / 10000, 4) // 0.5000 ~ 0.9999
-                ]
+                    'confidence' => round(rand(5000, 9999) / 10000, 4), // 0.5000 ~ 0.9999
+                ],
             ]);
         } else {
             // Failure レスポンス
             $errorCodes = ['E50012', 'E50013', 'E50014', 'E50015'];
+
             return response()->json([
                 'success' => false,
                 'message' => 'Error:' . $errorCodes[array_rand($errorCodes)],
-                'estimated_data' => []
+                'estimated_data' => [],
             ], 500);
         }
     }

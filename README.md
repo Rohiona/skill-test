@@ -49,14 +49,18 @@ docker-compose exec skill-test-app composer create-project laravel/laravel src
 ## Makeコマンド
 
 ```bash
-make help      # ヘルプを表示
-make up        # コンテナを起動
-make down      # コンテナを停止・削除
-make build     # コンテナをビルド
-make restart   # コンテナを再起動
-make logs      # ログを表示
-make ps        # コンテナ一覧を表示
-make clean     # コンテナ停止・ボリューム削除
+make help       # ヘルプを表示
+make up         # コンテナを起動
+make down       # コンテナを停止・削除
+make build      # コンテナをビルド
+make restart    # コンテナを再起動
+make logs       # ログを表示
+make ps         # コンテナ一覧を表示
+make attach-app # PHPコンテナにアタッチ
+make pint       # コードフォーマット（Laravel Pint）
+make pint-test  # フォーマットチェックのみ
+make ide-helper # IDE Helperファイル生成
+make clean      # コンテナ停止・ボリューム削除
 ```
 
 ## SSL証明書について

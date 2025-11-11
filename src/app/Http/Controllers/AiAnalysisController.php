@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\AiAnalysisLog;
 use App\Services\AiAnalysisService;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 
 class AiAnalysisController extends Controller
 {
@@ -23,6 +24,7 @@ class AiAnalysisController extends Controller
     public function index(): View
     {
         $logs = AiAnalysisLog::orderBy('id', 'desc')->paginate(20);
+
         return view('ai-analysis.index', compact('logs'));
     }
 
@@ -32,7 +34,7 @@ class AiAnalysisController extends Controller
     public function analyze(Request $request): RedirectResponse
     {
         $request->validate([
-            'image_path' => 'required|string|max:255'
+            'image_path' => 'required|string|max:255',
         ]);
 
         $imagePath = $request->input('image_path');
@@ -47,7 +49,7 @@ class AiAnalysisController extends Controller
                 return redirect()->route('ai-analysis.index')
                     ->with('error', 'AI分析が失敗しました: ' . $log->message);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('ai-analysis.index')
                 ->with('error', 'エラーが発生しました: ' . $e->getMessage());
         }

@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\AiAnalysisLog;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
 
 class AiAnalysisService
 {
@@ -19,9 +20,6 @@ class AiAnalysisService
 
     /**
      * 画像パスを受け取り、AI分析APIを呼び出してDBに保存
-     *
-     * @param string $imagePath
-     * @return AiAnalysisLog
      */
     public function analyzeAndSave(string $imagePath): AiAnalysisLog
     {
@@ -30,7 +28,7 @@ class AiAnalysisService
         try {
             // APIリクエスト送信
             $response = Http::timeout(30)->post($this->apiUrl, [
-                'image_path' => $imagePath
+                'image_path' => $imagePath,
             ]);
 
             $responseTimestamp = Carbon::now();
@@ -54,16 +52,16 @@ class AiAnalysisService
 
             return $log;
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // エラー時もDBに保存
             $responseTimestamp = Carbon::now();
 
             Log::error('AI Analysis API Error', [
                 'image_path' => $imagePath,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ]);
 
-            $log = AiAnalysisLog::create([
+            return AiAnalysisLog::query()->create([
                 'image_path' => $imagePath,
                 'success' => false,
                 'message' => 'Error: ' . $e->getMessage(),
@@ -72,8 +70,6 @@ class AiAnalysisService
                 'request_timestamp' => $requestTimestamp,
                 'response_timestamp' => $responseTimestamp,
             ]);
-
-            return $log;
         }
     }
 }
