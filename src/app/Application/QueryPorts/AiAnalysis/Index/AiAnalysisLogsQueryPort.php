@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Queries\AiAnalysis\Index;
+namespace App\Application\QueryPorts\AiAnalysis\Index;
 
 use App\Models\AiAnalysisLog;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

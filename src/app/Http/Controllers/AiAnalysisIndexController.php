@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\Queries\AiAnalysis\Index\AiAnalysisLogsQueryPort;
+use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use Illuminate\View\View;
 
 final class AiAnalysisIndexController extends Controller

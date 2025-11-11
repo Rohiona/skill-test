@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Persistence\AiAnalysis;
 
-use App\Application\Repositories\AiAnalysisLog\AiAnalysisLogRepositoryInterface;
 use App\Models\AiAnalysisLog;
+use Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 
 final class EloquentAiAnalysisLogRepository implements AiAnalysisLogRepositoryInterface
 {

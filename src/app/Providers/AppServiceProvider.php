@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Application\Gateways\ImageClassificationPort;
-use App\Application\Queries\AiAnalysis\Index\AiAnalysisLogsQueryPort;
-use App\Application\Repositories\AiAnalysisLog\AiAnalysisLogRepositoryInterface;
+use App\Application\ClientGateways\ImageClassificationGateway;
+use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use App\Infrastructure\Api\MockImageClassificationClient;
 use App\Infrastructure\Persistence\AiAnalysis\EloquentAiAnalysisLogRepository;
 use App\Infrastructure\Queries\AiAnalysys\Index\AiAnalysisLogsQuery;
+use Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            ImageClassificationPort::class,
+            ImageClassificationGateway::class,
             MockImageClassificationClient::class
         );
 

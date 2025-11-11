@@ -2,15 +2,15 @@
 
 namespace App\Application\UseCases;
 
-use App\Application\Gateways\ImageClassificationPort;
+use App\Application\ClientGateways\ImageClassificationGateway;
 use App\Application\Input\AnalyzeImageInput;
-use App\Application\Repositories\AiAnalysisLog\AiAnalysisLogRepositoryInterface;
 use Carbon\CarbonImmutable;
+use Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 
 final class AnalyzeImageUseCase
 {
     public function __construct(
-        private readonly ImageClassificationPort $aiClient,
+        private readonly ImageClassificationGateway $aiClient,
         private readonly AiAnalysisLogRepositoryInterface $logRepo,
     ) {}
 

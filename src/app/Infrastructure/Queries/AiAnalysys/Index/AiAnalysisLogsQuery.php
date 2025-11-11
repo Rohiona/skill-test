@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Queries\AiAnalysys\Index;
 
-use App\Application\Queries\AiAnalysis\Index\AiAnalysisLogsQueryPort;
+use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use App\Models\AiAnalysisLog;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 

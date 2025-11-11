@@ -2,11 +2,11 @@
 
 namespace App\Infrastructure\Api;
 
-use App\Application\DTO\ImageClassifyResult;
-use App\Application\Gateways\ImageClassificationPort;
+use App\Application\ClientGateways\ImageClassificationGateway;
+use App\Application\ClientGateways\ImageClassifyResult;
 use Random\RandomException;
 
-final class MockImageClassificationClient implements ImageClassificationPort
+final class MockImageClassificationClient implements ImageClassificationGateway
 {
     /**
      * @throws RandomException
