@@ -103,6 +103,33 @@ make clean         # コンテナ停止・ボリューム削除
 - ドメイン永続化は `Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface` を境界に、Eloquent 実装 (`infrastructure/Persistence`) を差し替え可能にしています。
 - `MockImageClassificationClient` は 25% の確率で `success=false` を返し、それ以外はハッシュ化したクラス/信頼度を決定します。乱数生成は `RandomIntGeneratorInterface` 経由で DI されるため、テストでは任意の値を供給できます。
 
+### 依存関係図（クラス図）
+
+```mermaid
+classDiagram
+    class AiAnalysisStoreController
+    class AnalyzeImageUseCase
+    class ImageClassificationGateway
+    class AiAnalysisLogRepositoryInterface
+    class MockImageClassificationClient
+    class EloquentAiAnalysisLogRepository
+    class AiAnalysisLogsQueryPort
+    class AiAnalysisLogsQuery
+    class RandomIntGeneratorInterface
+    class NativeRandomIntGenerator
+    class AiAnalysisIndexController
+
+    AiAnalysisStoreController --> AnalyzeImageUseCase
+    AnalyzeImageUseCase --> ImageClassificationGateway
+    AnalyzeImageUseCase --> AiAnalysisLogRepositoryInterface
+    ImageClassificationGateway <|.. MockImageClassificationClient
+    AiAnalysisLogRepositoryInterface <|.. EloquentAiAnalysisLogRepository
+    AiAnalysisLogsQueryPort <|.. AiAnalysisLogsQuery
+    MockImageClassificationClient --> RandomIntGeneratorInterface
+    RandomIntGeneratorInterface <|.. NativeRandomIntGenerator
+    AiAnalysisIndexController --> AiAnalysisLogsQueryPort
+```
+
 ## テスト
 
 ```
