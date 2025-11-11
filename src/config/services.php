@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'ai_classifier' => [
+        'base_url' => env('AI_CLASSIFIER_BASE_URL', 'http://example.com'),
+        'timeout' => env('AI_CLASSIFIER_TIMEOUT', 30),
+    ],
+
 ];

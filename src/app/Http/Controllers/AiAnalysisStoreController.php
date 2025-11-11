@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Application\Input\AnalyzeImageInput;
+use App\Application\UseCases\AnalyzeImageUseCase;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+final class AiAnalysisStoreController extends Controller
+{
+    public function __construct(private readonly AnalyzeImageUseCase $analyzeImageUseCase) {}
+
+    public function __invoke(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'image_path' => ['required', 'string', 'max:255'],
+        ]);
+
+        try {
+            $this->analyzeImageUseCase->handle(new AnalyzeImageInput($validated['image_path']));
+
+            return redirect()
+                ->route('ai-analysis.index')
+                ->with('success', '画像分析が完了しました。');
+        } catch (Exception $e) {
+            Log::error($e);
+
+            return redirect()
+                ->route('ai-analysis.index')
+                ->with('error', '分析中にエラーが発生しました: ' . $e->getMessage());
+        }
+    }
+}

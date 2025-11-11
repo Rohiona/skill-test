@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AiAnalysisController;
+use App\Http\Controllers\AiAnalysisIndexController;
+use App\Http\Controllers\AiAnalysisStoreController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AiAnalysisController::class, 'index'])->name('ai-analysis.index');
-Route::post('/analyze', [AiAnalysisController::class, 'analyze'])->name('ai-analysis.analyze');
+Route::get('/', AiAnalysisIndexController::class)->name('ai-analysis.index');
+Route::post('/analyze', AiAnalysisStoreController::class)->name('ai-analysis.analyze');
