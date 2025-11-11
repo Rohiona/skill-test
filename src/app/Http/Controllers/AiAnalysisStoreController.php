@@ -16,7 +16,9 @@ final class AiAnalysisStoreController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'image_path' => ['required', 'string', 'max:255'],
+            'image_path' => ['required', 'string', 'max:255', 'regex:/^\/[A-Za-z0-9_\-\/]+\.(jpe?g|png)$/i'],
+        ], [
+            'image_path.regex' => '画像パスは /xxx/yyy.jpg の形式で入力してください。',
         ]);
 
         try {

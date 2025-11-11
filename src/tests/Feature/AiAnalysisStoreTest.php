@@ -51,6 +51,16 @@ final class AiAnalysisStoreTest extends TestCase
         ]);
     }
 
+    public function test_不正なパス形式はバリデーションエラーになる(): void
+    {
+        $response = $this->post(route('ai-analysis.analyze'), [
+            'image_path' => 'not-a-path',
+        ]);
+
+        $response->assertSessionHasErrors('image_path');
+        $this->assertDatabaseCount('ai_analysis_log', 0);
+    }
+
     private function bindGateway(ImageClassifyResult $result): void
     {
         $this->app->bind(ImageClassificationGateway::class, function () use ($result) {
