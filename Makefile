@@ -1,4 +1,4 @@
-.PHONY: help up down build restart logs ps clean attach-app pint pint-test ide-helper
+.PHONY: help up down build restart logs ps clean attach-app pint pint-test ide-helper dump-autoload
 
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
@@ -34,6 +34,9 @@ ide-helper: ## Generate IDE helper files
 	docker-compose exec skill-test-app php artisan ide-helper:generate
 	docker-compose exec skill-test-app php artisan ide-helper:models --nowrite
 	docker-compose exec skill-test-app php artisan ide-helper:meta
+
+dump-autoload: ## Run composer dump-autoload
+	docker-compose exec skill-test-app composer dump-autoload
 
 clean: ## Stop containers and remove volumes
 	docker-compose down -v
