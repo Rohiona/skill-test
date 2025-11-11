@@ -4,29 +4,26 @@ namespace App\Infrastructure\Api;
 
 use App\Application\ClientGateways\ImageClassificationGateway;
 use App\Application\ClientGateways\ImageClassifyResult;
+use App\Application\Support\RandomIntGeneratorInterface;
 use Random\RandomException;
 
 final class MockImageClassificationClient implements ImageClassificationGateway
 {
+    public function __construct(private readonly RandomIntGeneratorInterface $random) {}
+
     /**
      * @throws RandomException
      */
     public function classify(string $imagePath): ImageClassifyResult
     {
-        $normalized = trim($imagePath);
-
-        if (random_int(1, 100) <= 25) {
+        if ($this->random->shouldFail()) {
             return $this->failureResult();
         }
 
-        $hash = crc32($normalized);
-        $class = ($hash % 10) + 1; // class range: 1-10
-        $confidence = round((($hash >> 8) % 10000) / 10000, 4);
-
         return new ImageClassifyResult(
             success: true,
-            class: $class,
-            confidence: $confidence,
+            class: $this->random->classFrom($imagePath),
+            confidence: $this->random->confidenceFrom($imagePath),
             message: 'success'
         );
     }

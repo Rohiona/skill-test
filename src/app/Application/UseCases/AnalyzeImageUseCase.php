@@ -3,6 +3,7 @@
 namespace App\Application\UseCases;
 
 use App\Application\ClientGateways\ImageClassificationGateway;
+use App\Application\ClientGateways\ImageClassifyResult;
 use App\Application\Input\AnalyzeImageInput;
 use Carbon\CarbonImmutable;
 use Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
@@ -14,7 +15,7 @@ final class AnalyzeImageUseCase
         private readonly AiAnalysisLogRepositoryInterface $logRepo,
     ) {}
 
-    public function handle(AnalyzeImageInput $input): void
+    public function handle(AnalyzeImageInput $input): ImageClassifyResult
     {
         $now = CarbonImmutable::now();
         $result = $this->aiClient->classify($input->imagePath);
@@ -28,5 +29,7 @@ final class AnalyzeImageUseCase
             'request_timestamp' => $now,
             'response_timestamp' => $now,
         ]);
+
+        return $result;
     }
 }

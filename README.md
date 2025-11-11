@@ -95,3 +95,29 @@ make clean         # コンテナ停止・ボリューム削除
 - `skill-test-db`: MySQL データベース
 - `skill-test-network`: コンテナ間通信用ネットワーク
 - `skill-test-db-data`: データベースの永続化ボリューム
+
+## アプリケーションアーキテクチャ
+
+- ユースケース駆動構成です。`app/Application` にユースケース (`UseCases`)、入力 DTO (`Input`)、および外部境界のポート (`ClientGateways`, `QueryPorts`) を配置しています。
+- 依存関係は `AppServiceProvider` で解決します。`ImageClassificationGateway` は `MockImageClassificationClient`（`infrastructure/Api`）にバインドされ、リポジトリやクエリも同様に `infrastructure` 直下の実装へマップされます。
+- ドメイン永続化は `Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface` を境界に、Eloquent 実装 (`infrastructure/Persistence`) を差し替え可能にしています。
+- `MockImageClassificationClient` は 25% の確率で `success=false` を返し、それ以外はハッシュ化したクラス/信頼度を決定します。乱数生成は `RandomIntGeneratorInterface` 経由で DI されるため、テストでは任意の値を供給できます。
+
+## テスト
+
+```
+make test
+```
+または
+```
+docker-compose exec skill-test-app php artisan test
+```
+
+実行結果（2025-11-11 時点）
+
+```
+PASS  Tests\Unit\MockImageClassificationClientTest
+PASS  Tests\Feature\AiAnalysisStoreTest
+```
+
+ユニットテストではモック AI クライアントの 25% 失敗やユースケースの成功/失敗を検証しています。

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Queries\AiAnalysys\Index;
+namespace App\Infrastructure\Queries\AiAnalysis\Index;
 
 use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use App\Models\AiAnalysisLog;
