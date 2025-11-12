@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\AiAnalysisLog\Repositories;
+namespace App\Domain\AiAnalysisLog\Repositories;
 
 interface AiAnalysisLogRepositoryInterface
 {

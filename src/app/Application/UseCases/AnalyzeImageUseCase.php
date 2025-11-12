@@ -5,8 +5,8 @@ namespace App\Application\UseCases;
 use App\Application\ClientGateways\ImageClassificationGateway;
 use App\Application\ClientGateways\ImageClassifyResult;
 use App\Application\Input\AnalyzeImageInput;
+use App\Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use Carbon\CarbonImmutable;
-use Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 
 final class AnalyzeImageUseCase
 {

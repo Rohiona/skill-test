@@ -5,11 +5,11 @@ namespace App\Providers;
 use App\Application\ClientGateways\ImageClassificationGateway;
 use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use App\Application\Support\RandomIntGeneratorInterface;
+use App\Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use App\Infrastructure\Api\MockImageClassificationClient;
 use App\Infrastructure\Persistence\AiAnalysis\EloquentAiAnalysisLogRepository;
 use App\Infrastructure\Queries\AiAnalysis\Index\AiAnalysisLogsQuery;
 use App\Infrastructure\Support\NativeRandomIntGenerator;
-use Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
