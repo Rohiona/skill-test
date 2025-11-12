@@ -99,6 +99,7 @@ make clean         # コンテナ停止・ボリューム削除
 ## アプリケーションアーキテクチャ
 
 - ユースケース駆動構成です。`app/Application` にユースケース (`UseCases`)、入力 DTO (`Input`)、および外部境界のポート (`ClientGateways`, `QueryPorts`) を配置しています。
+- 今回の要件では明確なドメインロジックが少ないため、ユースケースやサービスなどアプリケーション層側が中心となる設計にしています。
 - 依存関係は `AppServiceProvider` で解決します。`AiAnalysisGateway` は `MockAiAnalysisGatewayClient`（`Infrastructure/Api`）にバインドされ、リポジトリやクエリも同様に `Infrastructure` 直下の実装へマップされます。
 - ドメイン永続化は `Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface` を境界に、Eloquent 実装 (`infrastructure/Persistence`) を差し替え可能にしています。
 - `MockAiAnalysisGatewayClient` は 25% の確率で `success=false` を返し、それ以外はハッシュ化したクラス/信頼度を決定します。乱数生成は `Application/Services/Random` 配下の `RandomIntGenerationServiceInterface` 経由で DI されるため、テストでは任意の値を供給できます。
