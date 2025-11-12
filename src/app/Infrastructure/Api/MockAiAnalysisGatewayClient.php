@@ -14,7 +14,7 @@ final class MockAiAnalysisGatewayClient implements AiAnalysisGateway
     /**
      * @throws RandomException
      */
-    public function classify(string $imagePath): AiAnalysisGatewayResult
+    public function analyze(string $imagePath): AiAnalysisGatewayResult
     {
         if ($this->random->shouldFail()) {
             return $this->failureResult();

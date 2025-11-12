@@ -108,7 +108,7 @@ final class AiAnalysisStoreTest extends TestCase
             {
                 public function __construct(private readonly AiAnalysisGatewayResult $result) {}
 
-                public function classify(string $imagePath): AiAnalysisGatewayResult
+                public function analyze(string $imagePath): AiAnalysisGatewayResult
                 {
                     return $this->result;
                 }

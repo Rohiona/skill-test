@@ -17,7 +17,7 @@ final class AnalyzeImageUseCase
     public function handle(AnalyzeImageUseCaseInput $input): AiAnalysisGatewayResult
     {
         $now = CarbonImmutable::now();
-        $result = $this->aiClient->classify($input->imagePath);
+        $result = $this->aiClient->analyze($input->imagePath);
 
         $this->logRepo->create([
             'image_path' => $input->imagePath,

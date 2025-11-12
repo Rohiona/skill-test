@@ -30,7 +30,7 @@ final class MockAiAnalysisGatewayClientTest extends TestCase
             }
         });
 
-        $result = $client->classify('/images/any.jpg');
+        $result = $client->analyze('/images/any.jpg');
 
         $this->assertFalse($result->success);
         $this->assertSame('Error:E50012', $result->message);
@@ -59,7 +59,7 @@ final class MockAiAnalysisGatewayClientTest extends TestCase
             }
         });
 
-        $result = $client->classify('/images/success.jpg');
+        $result = $client->analyze('/images/success.jpg');
 
         $this->assertTrue($result->success);
         $this->assertSame(5, $result->class);
