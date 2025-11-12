@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\UseCases\AnalyzeImageUseCase;
+use App\Application\UseCases\AiAnalysis\AnalyzeImageUseCase;
 use App\Http\Requests\AiAnalysisStoreRequest;
 use Exception;
 use Illuminate\Http\RedirectResponse;

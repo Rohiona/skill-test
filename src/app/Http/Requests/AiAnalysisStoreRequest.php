@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Application\Input\AnalyzeImageInput;
+use App\Application\UseCases\AiAnalysis\AnalyzeImageUseCaseInput;
 use Illuminate\Foundation\Http\FormRequest;
 
 final class AiAnalysisStoreRequest extends FormRequest
@@ -31,8 +31,8 @@ final class AiAnalysisStoreRequest extends FormRequest
         ];
     }
 
-    public function getAnalyzeImageInput(): AnalyzeImageInput
+    public function getAnalyzeImageInput(): AnalyzeImageUseCaseInput
     {
-        return new AnalyzeImageInput($this->validated()['image_path']);
+        return new AnalyzeImageUseCaseInput($this->validated()['image_path']);
     }
 }

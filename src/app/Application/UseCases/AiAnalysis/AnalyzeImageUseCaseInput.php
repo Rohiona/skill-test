@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\Input;
+namespace App\Application\UseCases\AiAnalysis;
 
-final class AnalyzeImageInput
+final class AnalyzeImageUseCaseInput
 {
     public function __construct(
         public readonly string $imagePath,

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Application\ClientGateways\ImageClassificationGateway;
-use App\Application\ClientGateways\ImageClassifyResult;
+use App\Application\ClientGateways\AiAnalysisGateway;
+use App\Application\ClientGateways\AiAnalysisGatewayResult;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionException;
@@ -19,7 +19,7 @@ final class AiAnalysisStoreTest extends TestCase
     #[DataProvider('validPathProvider')]
     public function test_分析成功時にログ保存と成功メッセージを表示する(string $imagePath): void
     {
-        $result = new ImageClassifyResult(true, 3, 0.8, 'success');
+        $result = new AiAnalysisGatewayResult(true, 3, 0.8, 'success');
         $this->bindGateway($result);
 
         $response = $this->post(route('ai-analysis.analyze'), [
@@ -43,7 +43,7 @@ final class AiAnalysisStoreTest extends TestCase
      */
     public function test_分析失敗時にエラーメッセージと失敗ログを記録する(): void
     {
-        $result = new ImageClassifyResult(false, null, null, 'Error:E50012');
+        $result = new AiAnalysisGatewayResult(false, null, null, 'Error:E50012');
         $this->bindGateway($result);
 
         $response = $this->post(route('ai-analysis.analyze'), [
@@ -101,14 +101,14 @@ final class AiAnalysisStoreTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    private function bindGateway(ImageClassifyResult $result): void
+    private function bindGateway(AiAnalysisGatewayResult $result): void
     {
-        $this->app->bind(ImageClassificationGateway::class, function () use ($result) {
-            return new class($result) implements ImageClassificationGateway
+        $this->app->bind(AiAnalysisGateway::class, function () use ($result) {
+            return new class($result) implements AiAnalysisGateway
             {
-                public function __construct(private readonly ImageClassifyResult $result) {}
+                public function __construct(private readonly AiAnalysisGatewayResult $result) {}
 
-                public function classify(string $imagePath): ImageClassifyResult
+                public function classify(string $imagePath): AiAnalysisGatewayResult
                 {
                     return $this->result;
                 }

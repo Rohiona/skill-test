@@ -2,7 +2,7 @@
 
 namespace App\Application\ClientGateways;
 
-final class ImageClassifyResult
+final class AiAnalysisGatewayResult
 {
     public function __construct(
         public readonly bool $success,

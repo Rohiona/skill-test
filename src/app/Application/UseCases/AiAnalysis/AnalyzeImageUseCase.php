@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Application\UseCases;
+namespace App\Application\UseCases\AiAnalysis;
 
-use App\Application\ClientGateways\ImageClassificationGateway;
-use App\Application\ClientGateways\ImageClassifyResult;
-use App\Application\Input\AnalyzeImageInput;
+use App\Application\ClientGateways\AiAnalysisGateway;
+use App\Application\ClientGateways\AiAnalysisGatewayResult;
 use App\Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use Carbon\CarbonImmutable;
 
 final class AnalyzeImageUseCase
 {
     public function __construct(
-        private readonly ImageClassificationGateway $aiClient,
+        private readonly AiAnalysisGateway $aiClient,
         private readonly AiAnalysisLogRepositoryInterface $logRepo,
     ) {}
 
-    public function handle(AnalyzeImageInput $input): ImageClassifyResult
+    public function handle(AnalyzeImageUseCaseInput $input): AiAnalysisGatewayResult
     {
         $now = CarbonImmutable::now();
         $result = $this->aiClient->classify($input->imagePath);

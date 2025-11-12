@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use App\Application\ClientGateways\ImageClassificationGateway;
+use App\Application\ClientGateways\AiAnalysisGateway;
 use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use App\Application\Support\RandomIntGeneratorInterface;
 use App\Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
-use App\Infrastructure\Api\MockImageClassificationClient;
+use App\Infrastructure\Api\MockAiAnalysisGatewayClient;
 use App\Infrastructure\Persistence\AiAnalysis\EloquentAiAnalysisLogRepository;
 use App\Infrastructure\Queries\AiAnalysis\Index\AiAnalysisLogsQuery;
 use App\Infrastructure\Support\NativeRandomIntGenerator;
@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(RandomIntGeneratorInterface::class, NativeRandomIntGenerator::class);
 
-        $this->app->bind(ImageClassificationGateway::class, MockImageClassificationClient::class);
+        $this->app->bind(AiAnalysisGateway::class, MockAiAnalysisGatewayClient::class);
 
         $this->app->bind(
             AiAnalysisLogRepositoryInterface::class,
