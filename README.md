@@ -106,29 +106,29 @@ make clean         # コンテナ停止・ボリューム削除
 
 ### 依存関係図（クラス図）
 
+分析実行
 ```mermaid
 classDiagram
-    class AiAnalysisStoreController
-    class AnalyzeImageUseCase
-    class AiAnalysisGateway
-    class AiAnalysisLogRepositoryInterface
-    class MockAiAnalysisGatewayClient
-    class EloquentAiAnalysisLogRepository
-    class AiAnalysisLogsQueryPort
-    class AiAnalysisLogsQuery
-    class RandomIntGeneratorInterface
-    class NativeRandomIntGenerator
-    class AiAnalysisIndexController
-
     AiAnalysisStoreController --> AnalyzeImageUseCase
     AnalyzeImageUseCase --> AiAnalysisGateway
     AnalyzeImageUseCase --> AiAnalysisLogRepositoryInterface
     AiAnalysisGateway <|.. MockAiAnalysisGatewayClient
     AiAnalysisLogRepositoryInterface <|.. EloquentAiAnalysisLogRepository
-    AiAnalysisLogsQueryPort <|.. AiAnalysisLogsQuery
-    MockAiAnalysisGatewayClient --> RandomIntGeneratorInterface
-    RandomIntGeneratorInterface <|.. NativeRandomIntGenerator
+```
+
+ログ表示
+```mermaid
+classDiagram
     AiAnalysisIndexController --> AiAnalysisLogsQueryPort
+    AiAnalysisLogsQueryPort <|.. AiAnalysisLogsQuery
+```
+
+補助サービス
+```mermaid
+classDiagram
+    MockAiAnalysisGatewayClient --> RandomIntGenerationServiceInterface
+    RandomIntGenerationServiceInterface <|.. NativeRandomIntGenerationService
+    AiAnalysisStoreRequest --> ImagePath
 ```
 
 ## テスト
