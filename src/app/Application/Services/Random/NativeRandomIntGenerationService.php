@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Infrastructure\Support;
+namespace App\Application\Services\Random;
 
-use App\Application\Support\RandomIntGeneratorInterface;
-
-final class NativeRandomIntGenerator implements RandomIntGeneratorInterface
+final class NativeRandomIntGenerationService implements RandomIntGenerationServiceInterface
 {
     public function shouldFail(): bool
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\Support;
+namespace App\Application\Services\Random;
 
 use Random\RandomException;
 
-interface RandomIntGeneratorInterface
+interface RandomIntGenerationServiceInterface
 {
     /**
      * @throws RandomException

@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Application\UseCases\AiAnalysis\AnalyzeImageUseCaseInput;
+use App\Application\ValueObjects\ImagePath;
 use Illuminate\Foundation\Http\FormRequest;
+use InvalidArgumentException;
 
 final class AiAnalysisStoreRequest extends FormRequest
 {
@@ -18,21 +20,21 @@ final class AiAnalysisStoreRequest extends FormRequest
             'image_path' => [
                 'required',
                 'string',
-                'max:255',
-                'regex:/^\/[A-Za-z0-9_\-\/]+\.(jpe?g|png|gif|bmp|webp)$/i',
+                function (string $attribute, mixed $value, callable $fail): void {
+                    try {
+                        ImagePath::fromString((string) $value);
+                    } catch (InvalidArgumentException $e) {
+                        $fail($e->getMessage());
+                    }
+                },
             ],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'image_path.regex' => '画像パスは /xxx/yyy.jpg の形式で入力してください。',
         ];
     }
 
     public function getAnalyzeImageInput(): AnalyzeImageUseCaseInput
     {
-        return new AnalyzeImageUseCaseInput($this->validated()['image_path']);
+        $imagePath = ImagePath::fromString($this->validated('image_path'));
+
+        return new AnalyzeImageUseCaseInput($imagePath->value());
     }
 }

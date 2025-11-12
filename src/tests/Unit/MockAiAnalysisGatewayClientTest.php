@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Application\Support\RandomIntGeneratorInterface;
+use App\Application\Services\Random\RandomIntGenerationServiceInterface;
 use App\Infrastructure\Api\MockAiAnalysisGatewayClient;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -12,7 +12,7 @@ final class MockAiAnalysisGatewayClientTest extends TestCase
     #[Test]
     public function test_乱数が閾値以下なら失敗レスポンスになる(): void
     {
-        $client = new MockAiAnalysisGatewayClient(new class() implements RandomIntGeneratorInterface
+        $client = new MockAiAnalysisGatewayClient(new class() implements RandomIntGenerationServiceInterface
         {
             public function shouldFail(): bool
             {
@@ -41,7 +41,7 @@ final class MockAiAnalysisGatewayClientTest extends TestCase
     #[Test]
     public function test_乱数が閾値を超えると成功レスポンスになる(): void
     {
-        $client = new MockAiAnalysisGatewayClient(new class() implements RandomIntGeneratorInterface
+        $client = new MockAiAnalysisGatewayClient(new class() implements RandomIntGenerationServiceInterface
         {
             public function shouldFail(): bool
             {

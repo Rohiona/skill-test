@@ -4,12 +4,12 @@ namespace App\Providers;
 
 use App\Application\ClientGateways\AiAnalysisGateway;
 use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
-use App\Application\Support\RandomIntGeneratorInterface;
+use App\Application\Services\Random\NativeRandomIntGenerationService;
+use App\Application\Services\Random\RandomIntGenerationServiceInterface;
 use App\Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use App\Infrastructure\Api\MockAiAnalysisGatewayClient;
 use App\Infrastructure\Persistence\AiAnalysis\EloquentAiAnalysisLogRepository;
 use App\Infrastructure\Queries\AiAnalysis\Index\AiAnalysisLogsQuery;
-use App\Infrastructure\Support\NativeRandomIntGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(RandomIntGeneratorInterface::class, NativeRandomIntGenerator::class);
+        $this->app->bind(RandomIntGenerationServiceInterface::class, NativeRandomIntGenerationService::class);
 
         $this->app->bind(AiAnalysisGateway::class, MockAiAnalysisGatewayClient::class);
 

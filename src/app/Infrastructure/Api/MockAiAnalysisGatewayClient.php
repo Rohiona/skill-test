@@ -4,12 +4,12 @@ namespace App\Infrastructure\Api;
 
 use App\Application\ClientGateways\AiAnalysisGateway;
 use App\Application\ClientGateways\AiAnalysisGatewayResult;
-use App\Application\Support\RandomIntGeneratorInterface;
+use App\Application\Services\Random\RandomIntGenerationServiceInterface;
 use Random\RandomException;
 
 final class MockAiAnalysisGatewayClient implements AiAnalysisGateway
 {
-    public function __construct(private readonly RandomIntGeneratorInterface $random) {}
+    public function __construct(private readonly RandomIntGenerationServiceInterface $random) {}
 
     /**
      * @throws RandomException
