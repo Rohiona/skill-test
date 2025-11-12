@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Application\ClientGateways\AiAnalysisGateway;
-use App\Application\ClientGateways\AiAnalysisGatewayResult;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGateway;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGatewayResult;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionException;

@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Api;
 
-use App\Application\ClientGateways\AiAnalysisGateway;
-use App\Application\ClientGateways\AiAnalysisGatewayResult;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGateway;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGatewayResult;
 use App\Application\Services\Random\RandomIntGenerationServiceInterface;
 use Random\RandomException;
 

@@ -2,8 +2,8 @@
 
 namespace App\Application\UseCases\AiAnalysis;
 
-use App\Application\ClientGateways\AiAnalysisGateway;
-use App\Application\ClientGateways\AiAnalysisGatewayResult;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGateway;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGatewayResult;
 use App\Domain\AiAnalysisLog\Repositories\AiAnalysisLogRepositoryInterface;
 use Carbon\CarbonImmutable;
 

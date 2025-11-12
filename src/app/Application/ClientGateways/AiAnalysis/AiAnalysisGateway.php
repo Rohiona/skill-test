@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\ClientGateways;
+namespace App\Application\ClientGateways\AiAnalysis;
 
 interface AiAnalysisGateway
 {

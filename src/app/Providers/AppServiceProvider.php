@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Application\ClientGateways\AiAnalysisGateway;
+use App\Application\ClientGateways\AiAnalysis\AiAnalysisGateway;
 use App\Application\QueryPorts\AiAnalysis\Index\AiAnalysisLogsQueryPort;
 use App\Application\Services\Random\NativeRandomIntGenerationService;
 use App\Application\Services\Random\RandomIntGenerationServiceInterface;
