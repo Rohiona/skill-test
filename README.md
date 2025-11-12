@@ -106,7 +106,7 @@ make clean         # コンテナ停止・ボリューム削除
 
 ### 依存関係図（クラス図）
 
-分析実行
+分析実行（フォーム入力→ユースケース→AIゲートウェイ／ログ保存）
 ```mermaid
 classDiagram
     AiAnalysisStoreController --> AnalyzeImageUseCase
@@ -115,21 +115,32 @@ classDiagram
     AiAnalysisGateway <|.. MockAiAnalysisGatewayClient
     AiAnalysisLogRepositoryInterface <|.. EloquentAiAnalysisLogRepository
 ```
+AiAnalysisStoreController: 画像パスフォームのハンドラ
+AnalyzeImageUseCase: 分析実行とログ保存をオーケストレーションするユースケース
+AiAnalysisGateway: AI分析APIを抽象化したポート
+AiAnalysisLogRepositoryInterface: 分析ログ永続化のポート
+MockAiAnalysisGatewayClient / EloquentAiAnalysisLogRepository: 上記ポートのインフラ実装
 
-ログ表示
+ログ表示（トップページでログを取得）
 ```mermaid
 classDiagram
     AiAnalysisIndexController --> AiAnalysisLogsQueryPort
     AiAnalysisLogsQueryPort <|.. AiAnalysisLogsQuery
 ```
+AiAnalysisIndexController: ログ一覧画面のハンドラ
+AiAnalysisLogsQueryPort: ログ取得のポート
+AiAnalysisLogsQuery: ログ一覧を取得する Eloquent 実装
 
-補助サービス
+補助サービス（モックAI・乱数生成・画像パスVO）
 ```mermaid
 classDiagram
     MockAiAnalysisGatewayClient --> RandomIntGenerationServiceInterface
     RandomIntGenerationServiceInterface <|.. NativeRandomIntGenerationService
     AiAnalysisStoreRequest --> ImagePath
 ```
+MockAiAnalysisGatewayClient: 開発用のモックAIクライアント
+RandomIntGenerationServiceInterface / NativeRandomIntGenerationService: 25%失敗ロジックとハッシュ算出を担うサービス
+AiAnalysisStoreRequest / ImagePath: 入力値を検証・正規化する FormRequest と ValueObject
 
 ## テスト
 
